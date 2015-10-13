@@ -1,15 +1,14 @@
 var config = {
     numGenerations: 'infinite',
     population: {
-        cats: 6e4,
-        dogs: 5e4,
-		birds: 1e4
+        cats: 3e4,
+        dogs: 7e4,
     },
-    drawAmount: 1e4
+    drawAmount: 5e4
 };
 
 var GeneticDriftSimulator = function (user_config) {
-    this.config = _.default(user_config, {
+    this.config = _.defaults(user_config, {
         numGenerations: '5',
         population: {
             red: 50,
@@ -33,7 +32,7 @@ GeneticDriftSimulator.prototype.run = function () {
                 population.push(populationName);
             }
         }
-        ratioPopulation = this.ProcessGeneration(population, config.draw_amount, i + 1);
+        ratioPopulation = this.ProcessGeneration(population, config.drawAmount);
 
         var print_result = "Generation " + i + ": ";
         Object.keys(ratioPopulation).forEach(function (key) {
@@ -49,7 +48,7 @@ GeneticDriftSimulator.prototype.ProcessGeneration = function (population, drawAm
         throw 'SimulationError: The DrawAmount is more than the Population.';
     }
     if (population.length % drawAmount != 0) {
-        throw 'SimulationError: the draw amount cannot be evenly divided by Population';
+        throw 'SimulationError: The DrawAmount cannot be evenly divided by Population';
     }
 
     temp_drawn = _.sample(population, drawAmount);
